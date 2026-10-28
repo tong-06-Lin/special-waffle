@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#843f3b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='8' fill='%2388433f'/%3E%3Ctext x='24' y='34' font-size='31' text-anchor='middle' fill='%23fff9ed'%3E知%3C/text%3E%3C/svg%3E">
+  <title>知习 · 中华知识刷题本</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="知习首页"><span class="brand-seal" aria-hidden="true">知</span><span class="brand-name">知习<span class="brand-divider"></span><span class="brand-subtitle">中华知识刷题本</span></span></a>
+    <div class="header-right"><span id="save-status" role="status"><i class="save-dot"></i>进度自动保存</span><button id="help-button" class="icon-button" aria-label="使用说明" title="使用说明">?</button></div>
+  </header>
+
+  <main class="workspace">
+    <section class="page-heading">
+      <div><div class="eyebrow">2026 中华知识竞赛 · 初赛题库</div><h1>日有所习，学有所获<span>。</span></h1><p>从一道题开始，把知识慢慢变成底气。</p></div>
+      <div class="heading-art" aria-hidden="true"><div class="art-orbit"></div><span>温故</span><span>知新</span><small>LEARN A LITTLE, EVERY DAY</small></div>
+    </section>
+
+    <section class="stats-grid" aria-label="学习统计">
+      <article class="stat-card"><div class="stat-icon progress-icon" aria-hidden="true">▤</div><div><span class="stat-label">刷题进度</span><p><strong id="answered-count">0</strong><span class="stat-denominator"> / <span id="total-count">2525</span> 题</span></p></div><div class="stat-meter" aria-hidden="true"><span id="progress-meter"></span></div><span class="stat-note" id="progress-note">慢慢来，每一题都算数</span></article>
+      <article class="stat-card"><div class="stat-icon accuracy-icon" aria-hidden="true">✓</div><div><span class="stat-label">累计正确率</span><p><strong id="accuracy-count">—</strong><span class="stat-denominator" id="accuracy-unit"></span></p></div><span class="stat-note" id="attempt-note">提交答案后开始统计</span></article>
+      <article class="stat-card mistake-stat"><div class="stat-icon mistake-icon" aria-hidden="true">↺</div><div><span class="stat-label">我的错题</span><p><strong id="mistake-count">0</strong><span class="stat-denominator"> 题</span></p></div><button id="review-mistakes" class="text-button">去巩固 <span aria-hidden="true">↗</span></button><span class="stat-note">答错自动记录，进步有迹可循</span></article>
+    </section>
+
+    <div id="storage-warning" class="storage-warning" hidden role="alert"></div>
+
+    <section class="study-layout">
+      <aside class="directory panel" aria-label="题号目录">
+        <div class="panel-heading"><h2>题号目录</h2><span id="directory-count" class="soft-count">2525 题</span><button id="directory-toggle" class="icon-button mobile-only" aria-expanded="false" aria-controls="directory-content" aria-label="展开题号目录">⌄</button></div>
+        <div id="directory-content">
+          <label class="search-box"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="question-search" type="search" placeholder="搜索题号或关键词" aria-label="搜索题号或关键词"><span class="search-shortcut" aria-hidden="true">⌕</span></label>
+          <div class="directory-filters"><label for="type-filter" class="sr-only">筛选题型</label><select id="type-filter"><option value="">全部题型</option><option>判断题</option><option>单选题</option><option>多选题</option><option>填空题</option></select><button id="clear-filters" class="text-button" hidden>清除筛选</button></div>
+          <div class="directory-range"><span id="directory-range">第 1 – 100 题</span><span id="directory-page">1 / 26</span></div>
+          <div id="question-grid" class="question-grid" aria-label="点击题号跳转"></div>
+          <div class="directory-pagination"><button id="directory-prev" aria-label="上一页题号">← 上一页</button><button id="directory-next" aria-label="下一页题号">下一页 →</button></div>
+          <div class="directory-legend"><span><i class="legend-current"></i>当前</span><span><i class="legend-correct"></i>答对</span><span><i class="legend-wrong"></i>答错</span><span><i></i>未答</span></div>
+          <div class="directory-tip"><span aria-hidden="true">✦</span><p>不必一次走很远，<br>每天进步一点点就好。</p></div>
+        </div>
+      </aside>
+
+      <section class="practice-area" aria-label="答题区">
+        <div class="practice-toolbar"><div class="mode-tabs" role="group" aria-label="练习模式"><button id="mode-all" class="mode-tab active" aria-pressed="true"><span aria-hidden="true">▤</span> 顺序刷题</button><button id="mode-mistakes" class="mode-tab" aria-pressed="false"><span aria-hidden="true">↺</span> 错题本 <span id="mistake-tab-count" class="tab-count">0</span></button></div><span class="flow-hint"><i></i>答对自动下一题</span></div>
+
+        <article id="question-card" class="question-card panel">
+          <div class="question-meta"><div><span id="question-type" class="type-badge">判断题</span><span id="question-position" class="position-label">第 1 / 2525 题</span></div><span id="question-history" class="question-history"></span></div>
+          <h2 id="question-text" tabindex="-1"></h2>
+          <p id="answer-instruction" class="answer-instruction"></p>
+          <div id="source-warning" class="source-warning" hidden></div>
+          <div id="answer-options" class="answer-options" role="group" aria-label="选择答案"></div>
+          <div id="fill-answer-wrap" class="fill-answer-wrap" hidden><label for="fill-answer">你的答案</label><input id="fill-answer" type="text" autocomplete="off" maxlength="1000" placeholder="在这里输入答案"><p>按题库原答案核对，忽略空格、全半角和书名号。</p></div>
+          <div id="feedback" class="feedback" hidden aria-live="polite"></div>
+          <div class="answer-actions"><span class="answer-shortcut" id="answer-shortcut">选好后，按 Enter 提交</span><div><button id="retry-button" class="button button-secondary" hidden>再做一次</button><button id="submit-button" class="button button-primary" disabled>提交答案 <span aria-hidden="true">↗</span></button></div></div>
+          <section id="explanation" class="explanation" hidden><div class="explanation-heading"><span aria-hidden="true">✧</span><h3>题目解析</h3><span>来自原题库</span></div><p id="explanation-text"></p><button id="remove-mistake" class="text-button" hidden>移出错题本</button></section>
+          <div id="completion" class="completion" hidden role="status"></div>
+        </article>
+
+        <div id="empty-state" class="empty-state panel" hidden><div class="empty-symbol" aria-hidden="true">✧</div><h2 id="empty-title"></h2><p id="empty-description"></p><button id="empty-action" class="button button-primary">回到顺序刷题</button></div>
+
+        <nav class="question-navigation" aria-label="题目翻页"><button id="previous-question" class="button button-secondary"><span aria-hidden="true">←</span> 上一道</button><span id="navigation-count"></span><button id="next-question" class="button button-secondary">下一道 <span aria-hidden="true">→</span></button></nav>
+        <p class="practice-note"><span aria-hidden="true">♧</span> 答错会停留在本题，并自动加入错题本。答对后会保留错题记录，方便反复巩固。</p>
+      </section>
+    </section>
+
+    <footer class="page-footer"><span>知习 <span class="footer-dot">·</span> 让每一次练习，都有收获</span><div><button id="export-records" class="text-button">导出记录</button><span>·</span><button id="import-records" class="text-button">导入记录</button><span>·</span><button id="reset-records" class="text-button muted-button">重置进度</button></div></footer>
+    <input id="import-file" type="file" accept="application/json,.json" hidden>
+  </main>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="help-dialog"><button id="close-help" class="dialog-close icon-button" aria-label="关闭说明">×</button><span class="eyebrow">一点说明</span><h2>按自己的节奏，慢慢学。</h2><ul><li>单选、判断题选择一项，多选题选全答案，再点击「提交答案」。填空题输入后提交。</li><li>答对约 1 秒后自动进入下一题；答错停留，并显示原题库答案和解析。点击「再做一次」可重做。</li><li>搜索题号或关键词后，点击目录中的题号跳转；搜索不会打断题目顺序。「上一道 / 下一道」可手动切换，题型筛选会作用于当前练习。</li><li>错题答对后仍保留，标为「已订正」。需要时可手动移出错题本。</li><li>记录保存在当前浏览器。更换浏览器、设备、文件位置或清理浏览器数据，可能无法读取原记录；请定期导出备份。导入记录会替换当前记录。</li><li>键盘操作：数字 1–6 选项，Enter 提交，← / → 切题（输入文字时除外）。</li></ul><p>题库来源：2026中华知识竞赛·初赛题库.xlsx。按原表答案判分，未对题目内容作校订。</p></dialog>
+  <noscript><p class="noscript">请启用 JavaScript 后使用刷题本。</p></noscript>
+  <script src="data/questions.js"></script>
+  <script src="core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
