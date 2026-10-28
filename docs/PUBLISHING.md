@@ -6,7 +6,7 @@
 
 ## 当前状态
 
-- 软件和静态发布文件已生成；本文件不能用作远程发布成功的证据，须检查实际推送、部署结果与访问响应。
+- 软件已上传到远端 `main`（应用提交 `c752d8c`），GitHub真实下载地址已返回 HTTP 200，下载 ZIP 与测试版逐字节一致。网站尚未确认上线。
 - 用户已在对话中授权将题库公开发布到 `tong-06-Lin/special-waffle`，无需重复征求公开题库的许可。
 - 原题库文件无需上传，网站中已经嵌入题目数据。
 - 当前环境对 `api.github.com` 的只读请求返回 Forbidden，尚未建立可用的 GitHub 管理 API 访问。原仓库的 HTTPS Git 读取正常。不要把这些结果解释为已有发布权限或要求用户在聊天中发送凭据。
@@ -14,9 +14,14 @@
 
 ## 授权后使用 GitHub Pages
 
-1. 获得公开题库的授权后，将代码及 `.github/workflows/pages.yml` 上传到 `tong-06-Lin/special-waffle`。
-2. 在仓库 Settings → Pages，将构建来源设为 **GitHub Actions**。通过 API 管理时先恢复当前环境对 GitHub 管理接口的访问，并检查现有身份的实际权限。
-3. 在 Actions 手动运行 **Publish quiz website**。工作流只响应手动触发，普通提交不会部署。
-4. 等待发布成功，使用部署实际返回的网址，从可访问公开网站的客户端验证题目、判分、跳题、错题和刷新保存；完成前不要声称已有可用网站。
+可直接从现有 `main` 分支发布：
+
+1. 打开仓库 Settings → Pages。
+2. Source 选 **Deploy from a branch**，Branch 选 **main**，目录选 **/(root)**，保存。根目录的 `index.html` 与其他静态资源已齐备，`.nojekyll` 避免额外模板处理。
+3. 等待 GitHub 返回真实部署结果和访问地址，再从公开客户端验证刷题、跳题、错题与保存。不能仅凭设置保存就声称网站已上线。
+
+也可以选择 GitHub Actions：在 Settings → Pages 将来源设为 **GitHub Actions**，再手动运行 **Publish quiz website**。该工作流仅响应手动触发，不会因普通提交而部署。
+
+通过 API 管理时先恢复当前环境对 GitHub 管理接口的访问，并检查现有身份的实际权限。用户已经授权公开发布，不要重复征求相同授权。
 
 刷题记录仍保存在每个浏览器的本地存储中，不会上传到 GitHub。网站和本地文件属于不同存储位置，迁移已有进度需导出后导入。
